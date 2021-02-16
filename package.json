@@ -1,0 +1,16 @@
+{
+  "name": "gk-wc-button",
+  "version": "0.1.0",
+  "description": "Web component button",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web",
+    "component",
+    "button"
+  ],
+  "author": "Ged Kirkham",
+  "license": "ISC"
+}

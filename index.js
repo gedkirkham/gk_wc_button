@@ -19,11 +19,21 @@ window.loadComponent = (function() {
         }
     
     function registerComponent({ template, style, script }) {
-        class UnityComponent extends HTMLElement {
+        class GkWcButton extends HTMLElement {
             static get observedAttributes() {
                 return [
                     'loading',
                 ]
+            }
+
+            constructor() {
+                super()
+                const shadow = this.attachShadow({ mode: 'open' }) // open: Elements of the shadow root are accessible from JavaScript outside the root, for example using Element.shadowRoot returns shadowRoot obj
+                
+                shadow.appendChild( style[0].cloneNode(true ))
+                shadow.appendChild( style[1].cloneNode(true ))
+                shadow.appendChild( style[2].cloneNode(true ))
+                shadow.appendChild( document.importNode(template.content, true ))
             }
 
             connectedCallback() { // is called when (after) the element is attached to the DOM
@@ -42,16 +52,6 @@ window.loadComponent = (function() {
                 })
             }
         
-            constructor() {
-                super()
-                const shadow = this.attachShadow({ mode: 'open' }) // open: Elements of the shadow root are accessible from JavaScript outside the root, for example using Element.shadowRoot returns shadowRoot obj
-                
-                shadow.appendChild( style[0].cloneNode(true ))
-                shadow.appendChild( style[1].cloneNode(true ))
-                shadow.appendChild( style[2].cloneNode(true ))
-                shadow.appendChild( document.importNode(template.content, true ))
-            }
-
             buttonPressed(event) {
                 this.form && this.submitForm(event)
             }
@@ -77,15 +77,13 @@ window.loadComponent = (function() {
         
                 SHADOW.getElementById('colourStyle').textContent = `
                     #wrapper {
-                        background-color: red;
-                        border-color: red red red red;
+                        background-color: var(--gk-colour-${colour}-600);
+                        border-color: var(--gk-colour-${colour}-400) var(--gk-colour-${colour}-800) var(--gk-colour-${colour}-700) var(--gk-colour-${colour}-300);
                     }
-                
                     #wrapper:hover {
-                        background-color: red;
-                        border-color: red red red red;
-                    }
-                    `
+                        background-color: var(--gk-colour-${colour}-500);
+                        border-color: var(--gk-colour-${colour}-300) var(--gk-colour-${colour}-700) var(--gk-colour-${colour}-600) var(--gk-colour-${colour}-200);
+                    }`
         
                 const SELECT_ICON = {
                     'database': () => {
@@ -217,7 +215,7 @@ window.loadComponent = (function() {
                 this.setAttribute('loading', value)
             }
         }
-        return customElements.define( 'gk-wc-button', UnityComponent )
+        return customElements.define( 'gk-wc-button', GkWcButton )
     }
     
     function loadComponent(URL) {

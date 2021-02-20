@@ -184,6 +184,12 @@ window.loadComponent = (function() {
                 })
             }
 
+            get icon() {
+                const ICON = this.getAttribute('icon')
+                if (typeof ICON === 'string') return ICON
+                else return 'save'
+            }
+
             get rounded() {
                 if (typeof this.getAttribute('rounded') === 'string') return 'rounded'
                 else return null

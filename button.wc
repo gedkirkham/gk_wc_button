@@ -74,7 +74,7 @@
         --gk-colour-neutral-800: #1E40AF;
     }
 
-    :host(:focus-visible) > #wrapper {
+    :host(:focus-visible)>#wrapper {
         border-color: white;
     }
 

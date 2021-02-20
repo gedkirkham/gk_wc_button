@@ -33,7 +33,7 @@ window.loadComponent = (function() {
                 shadow.appendChild( style[0].cloneNode(true ))
                 shadow.appendChild( style[1].cloneNode(true ))
                 shadow.appendChild( style[2].cloneNode(true ))
-                shadow.appendChild( document.importNode(template.content, true ))
+                shadow.appendChild(document.importNode(template.content, true))
             }
 
             connectedCallback() { // is called when (after) the element is attached to the DOM

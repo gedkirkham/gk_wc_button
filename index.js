@@ -87,6 +87,7 @@ window.loadComponent = (function() {
                     }`
                 
                 SHADOW.querySelector('#wrapper').style.borderWidth = this.flat ? '0px' : '8px'
+                SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '0px'
         
                 const SELECT_ICON = {
                     'database': () => {
@@ -181,6 +182,11 @@ window.loadComponent = (function() {
                     elem: this,
                     value: newValue
                 })
+            }
+
+            get rounded() {
+                if (typeof this.getAttribute('rounded') === 'string') return 'rounded'
+                else return null
             }
 
             get flat() {

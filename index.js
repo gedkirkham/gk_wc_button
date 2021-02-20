@@ -85,6 +85,8 @@ window.loadComponent = (function() {
                         background-color: var(--gk-colour-${COLOUR}-500);
                         border-color: var(--gk-colour-${COLOUR}-300) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-600) var(--gk-colour-${COLOUR}-200);
                     }`
+                
+                SHADOW.querySelector('#wrapper').style.borderWidth = this.flat ? '0px' : '8px'
         
                 const SELECT_ICON = {
                     'database': () => {
@@ -179,6 +181,11 @@ window.loadComponent = (function() {
                     elem: this,
                     value: newValue
                 })
+            }
+
+            get flat() {
+                if (typeof this.getAttribute('flat') === 'string') return 'flat'
+                else return null
             }
         
             set form(value) {

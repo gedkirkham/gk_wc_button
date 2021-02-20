@@ -75,14 +75,15 @@ window.loadComponent = (function() {
             }) {
                 const SHADOW = elem.shadowRoot
         
+                const COLOUR = colour ? colour : 'neutral'
                 SHADOW.getElementById('colourStyle').textContent = `
                     #wrapper {
-                        background-color: var(--gk-colour-${colour}-600);
-                        border-color: var(--gk-colour-${colour}-400) var(--gk-colour-${colour}-800) var(--gk-colour-${colour}-700) var(--gk-colour-${colour}-300);
+                        background-color: var(--gk-colour-${COLOUR}-600);
+                        border-color: var(--gk-colour-${COLOUR}-400) var(--gk-colour-${COLOUR}-800) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-300);
                     }
                     #wrapper:hover {
-                        background-color: var(--gk-colour-${colour}-500);
-                        border-color: var(--gk-colour-${colour}-300) var(--gk-colour-${colour}-700) var(--gk-colour-${colour}-600) var(--gk-colour-${colour}-200);
+                        background-color: var(--gk-colour-${COLOUR}-500);
+                        border-color: var(--gk-colour-${COLOUR}-300) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-600) var(--gk-colour-${COLOUR}-200);
                     }`
         
                 const SELECT_ICON = {

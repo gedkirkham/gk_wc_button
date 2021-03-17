@@ -1,24 +1,30 @@
-window.loadComponent = (function() {
+window.loadComponent = (function () {
     function fetchAndParse(URL) {
-        return fetch( URL )
-            .then(response => { return response.text() })
+        return fetch(URL)
+            .then(response => {
+                return response.text()
+            })
             .then(html => {
                 const parser = new DOMParser()
-                const document = parser.parseFromString( html, 'text/html' )
+                const document = parser.parseFromString(html, 'text/html')
                 const head = document.head
-                const template = head.querySelector( 'template' )
+                const template = head.querySelector('template')
                 const style = head.querySelectorAll('style')
-                const script = head.querySelector( 'script' )
-          
+                const script = head.querySelector('script')
+
                 return {
                     template,
                     style,
                     script
                 }
             })
-        }
-    
-    function registerComponent({ template, style, script }) {
+    }
+
+    function registerComponent({
+        template,
+        style,
+        script
+    }) {
         class GkWcButton extends HTMLElement {
             static get observedAttributes() {
                 return [
@@ -27,10 +33,12 @@ window.loadComponent = (function() {
             }
 
             connectedCallback() {
-                const shadow = this.attachShadow({ mode: 'open' }) // open: Elements of the shadow root are accessible from JavaScript outside the root, for example using Element.shadowRoot returns shadowRoot obj
-                shadow.appendChild( style[0].cloneNode(true ))
-                shadow.appendChild( style[1].cloneNode(true ))
-                shadow.appendChild( style[2].cloneNode(true ))
+                const shadow = this.attachShadow({
+                    mode: 'open'
+                }) // open: Elements of the shadow root are accessible from JavaScript outside the root, for example using Element.shadowRoot returns shadowRoot obj
+                shadow.appendChild(style[0].cloneNode(true))
+                shadow.appendChild(style[1].cloneNode(true))
+                shadow.appendChild(style[2].cloneNode(true))
                 shadow.appendChild(document.importNode(template.content, true))
 
                 this.setAttribute("role", "button")
@@ -47,14 +55,14 @@ window.loadComponent = (function() {
                     icon: this.icon
                 })
             }
-        
+
             buttonPressed(event) {
                 this.form && this.submitForm(event)
             }
-        
+
             submitForm(event) {
                 const FORM = document.getElementById(this.form)
-        
+
                 event.preventDefault()
                 const fakeSubmit = document.createElement('button')
                 fakeSubmit.type = 'submit'
@@ -63,14 +71,14 @@ window.loadComponent = (function() {
                 fakeSubmit.click()
                 fakeSubmit.remove()
             }
-        
+
             initStyle({
                 elem,
                 colour,
                 icon
             }) {
                 const SHADOW = elem.shadowRoot
-        
+
                 const COLOUR = colour ? colour : 'neutral'
                 SHADOW.getElementById('colourStyle').textContent = `
                     #wrapper {
@@ -81,10 +89,10 @@ window.loadComponent = (function() {
                         background-color: var(--gk-colour-${COLOUR}-500);
                         border-color: var(--gk-colour-${COLOUR}-300) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-600) var(--gk-colour-${COLOUR}-200);
                     }`
-                
+
                 SHADOW.querySelector('#wrapper').style.borderWidth = this.flat ? '0px' : '8px'
                 SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '0px'
-        
+
                 const SELECT_ICON = {
                     'database': () => {
                         const str = `<path 
@@ -113,10 +121,10 @@ window.loadComponent = (function() {
                         })
                     }
                 }
-        
+
                 SELECT_ICON[icon]()
             }
-        
+
             createSvg({
                 shadow,
                 id,
@@ -137,13 +145,13 @@ window.loadComponent = (function() {
                 svg.innerHTML = str
                 shadow.getElementById('wrapper').appendChild(svg)
             }
-        
+
             updateStyle({
                 elem,
                 value
             }) {
                 const SHADOW = elem.shadowRoot
-        
+
                 const SET_LOADING = {
                     'true': () => {
                         SHADOW.getElementById('loadingStyle').textContent = `
@@ -168,11 +176,11 @@ window.loadComponent = (function() {
                             }`
                     }
                 }
-        
+
                 if (SET_LOADING[value]) SET_LOADING[value]()
                 else SET_LOADING['false']()
             }
-        
+
             attributeChangedCallback(name, oldValue, newValue) {
                 this.updateStyle({
                     elem: this,
@@ -189,28 +197,28 @@ window.loadComponent = (function() {
                 if (typeof this.getAttribute('flat') === 'string') return 'flat'
                 else return null
             }
-        
+
             set form(value) {
                 return this.setAttribute('form', value)
             }
             get form() {
                 return this.getAttribute('form')
             }
-        
+
             set type(value) {
                 return this.setAttribute('type', value)
             }
             get type() {
                 return this.getAttribute('type')
             }
-        
+
             set colour(value) {
                 return this.setAttribute('colour', value)
             }
             get colour() {
                 return this.getAttribute('colour')
             }
-        
+
             set icon(value) {
                 return this.setAttribute('icon', value)
             }
@@ -219,7 +227,7 @@ window.loadComponent = (function() {
                 if (typeof ICON === 'string') return ICON
                 else return 'save'
             }
-        
+
             get loading() {
                 return this.getAttribute('loading')
             }
@@ -227,9 +235,9 @@ window.loadComponent = (function() {
                 this.setAttribute('loading', value)
             }
         }
-        return customElements.define( 'gk-wc-button', GkWcButton )
+        return customElements.define('gk-wc-button', GkWcButton)
     }
-    
+
     function loadComponent(URL) {
         return fetchAndParse(URL).then(registerComponent)
     }

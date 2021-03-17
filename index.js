@@ -26,17 +26,13 @@ window.loadComponent = (function() {
                 ]
             }
 
-            constructor() {
-                super()
+            connectedCallback() {
                 const shadow = this.attachShadow({ mode: 'open' }) // open: Elements of the shadow root are accessible from JavaScript outside the root, for example using Element.shadowRoot returns shadowRoot obj
-                
                 shadow.appendChild( style[0].cloneNode(true ))
                 shadow.appendChild( style[1].cloneNode(true ))
                 shadow.appendChild( style[2].cloneNode(true ))
                 shadow.appendChild(document.importNode(template.content, true))
-            }
 
-            connectedCallback() { // is called when (after) the element is attached to the DOM
                 this.setAttribute("role", "button")
                 this.setAttribute("tabindex", "0")
                 this.addEventListener("keydown", function (event) {

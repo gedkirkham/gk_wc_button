@@ -72,6 +72,17 @@ window.loadComponent = (function () {
                 fakeSubmit.remove()
             }
 
+            set_outline() {
+                if (this.outline) {
+                    const SHADOW = this.shadowRoot;
+                    SHADOW.querySelector('#wrapper').style.backgroundColor = 'transparent';
+                    SHADOW.querySelector('#wrapper').style.borderColor = getComputedStyle(this).getPropertyValue('--gk-colour-neutral-500');
+                    SHADOW.querySelector('#wrapper').style.borderWidth = '2px';
+                    SHADOW.querySelector('#wrapper').style.borderRadius = '3px';
+                    SHADOW.querySelector('#wrapper').style.color = getComputedStyle(this).getPropertyValue('--gk-colour-neutral-500');
+                }
+            }
+
             initStyle({
                 elem,
                 colour,
@@ -92,6 +103,8 @@ window.loadComponent = (function () {
 
                 SHADOW.querySelector('#wrapper').style.borderWidth = this.flat ? '0px' : '8px'
                 SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '0px'
+
+                this.set_outline();
 
                 const SELECT_ICON = {
                     'database': () => {
@@ -233,6 +246,11 @@ window.loadComponent = (function () {
             }
             set loading(value) {
                 this.setAttribute('loading', value)
+            }
+
+            get outline() {
+                if (typeof this.getAttribute('outline') === 'string') return 'outline'
+                else return null
             }
         }
         return customElements.define('gk-wc-button', GkWcButton)

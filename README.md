@@ -56,6 +56,13 @@ To change the icon, add the icon attibute with a valid param. Currently, only th
 </gk-wc-button>
 ```
 
+### Outline
+To create a flat design that just has a outline border, add the 'outline' attribute.
+```html
+<gk-wc-button outline>
+</gk-wc-button>
+```
+
 ### Example:
 ``` html        
 <gk-wc-button

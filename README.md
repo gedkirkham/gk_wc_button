@@ -4,6 +4,8 @@
 1. 'npm install' and add <script> tag that points to the packages index.js file located within the node_modules folder.
 2. Call 'loadComponent' and pass in file path to the packages 'button.wc' file located within the node_modules folder.
 
+![](https://github.com/gedkirkham/media/blob/master/gk-wc-button/images/solid__save__loading__click.gif)
+
 ``` html
 <script src="../index.js"></script>
 <script>

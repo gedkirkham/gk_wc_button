@@ -75,7 +75,6 @@ To create a flat design that just has a outline border, add the 'outline' attrib
     rounded
     flat
     colour="neutral"
-    icon="save"
 >
 </gk-wc-button>
 ```

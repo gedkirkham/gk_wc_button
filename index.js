@@ -52,7 +52,6 @@ window.loadComponent = (function () {
                 this.initStyle({
                     elem: this,
                     colour: this.colour,
-                    icon: this.icon
                 })
             }
 
@@ -86,7 +85,6 @@ window.loadComponent = (function () {
             initStyle({
                 elem,
                 colour,
-                icon
             }) {
                 const SHADOW = elem.shadowRoot
 
@@ -105,58 +103,6 @@ window.loadComponent = (function () {
                 SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '0px'
 
                 this.set_outline();
-
-                const SELECT_ICON = {
-                    'database': () => {
-                        const str = `<path 
-                                        fill="currentColor" 
-                                        d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z"
-                                    ></path>`
-                        this.createSvg({
-                            shadow: SHADOW,
-                            id: 'database',
-                            prefix: 'fas',
-                            icon: 'database',
-                            str: str
-                        })
-                    },
-                    'save': () => {
-                        const str = `<path 
-                                        fill="currentColor" 
-                                        d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM272 80v80H144V80h128zm122 352H54a6 6 0 0 1-6-6V86a6 6 0 0 1 6-6h42v104c0 13.255 10.745 24 24 24h176c13.255 0 24-10.745 24-24V83.882l78.243 78.243a6 6 0 0 1 1.757 4.243V426a6 6 0 0 1-6 6zM224 232c-48.523 0-88 39.477-88 88s39.477 88 88 88 88-39.477 88-88-39.477-88-88-88zm0 128c-22.056 0-40-17.944-40-40s17.944-40 40-40 40 17.944 40 40-17.944 40-40 40z"
-                                    ></path>`
-                        this.createSvg({
-                            shadow: SHADOW,
-                            id: 'save',
-                            prefix: 'far',
-                            icon: 'save',
-                            str: str
-                        })
-                    }
-                }
-
-                SELECT_ICON[icon]()
-            }
-
-            createSvg({
-                shadow,
-                id,
-                prefix,
-                icon,
-                str
-            }) {
-                const XMLNS = "http://www.w3.org/2000/svg"
-                var svg = document.createElementNS(XMLNS, "svg")
-                svg.setAttribute('id', id)
-                svg.setAttribute('aria-hidden', 'true')
-                svg.setAttribute('focusable', 'false')
-                svg.setAttribute('data-prefix', prefix)
-                svg.setAttribute('data-icon', icon)
-                svg.setAttribute('role', 'img')
-                svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-                svg.setAttribute('viewBox', '0 0 448 512')
-                svg.innerHTML = str
-                shadow.getElementById('wrapper').appendChild(svg)
             }
 
             updateStyle({
@@ -238,7 +184,6 @@ window.loadComponent = (function () {
             get icon() {
                 const ICON = this.getAttribute('icon')
                 if (typeof ICON === 'string') return ICON
-                else return 'save'
             }
 
             get loading() {

@@ -71,14 +71,14 @@ window.loadComponent = (function () {
                 fakeSubmit.remove()
             }
 
-            set_outline() {
+            set_outline(COLOUR) {
                 if (this.outline) {
                     const SHADOW = this.shadowRoot;
                     SHADOW.querySelector('#wrapper').style.backgroundColor = 'transparent';
-                    SHADOW.querySelector('#wrapper').style.borderColor = getComputedStyle(this).getPropertyValue('--gk-colour-neutral-500');
+                    SHADOW.querySelector('#wrapper').style.borderColor = `hsl(${getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}`)}, ${getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}-lightness`)}%)`;
                     SHADOW.querySelector('#wrapper').style.borderWidth = '2px';
                     SHADOW.querySelector('#wrapper').style.borderRadius = '3px';
-                    SHADOW.querySelector('#wrapper').style.color = getComputedStyle(this).getPropertyValue('--gk-colour-neutral-500');
+                    SHADOW.querySelector('#wrapper').style.color = `hsl(${getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}`)}, ${getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}-lightness`)}%)`;
                 }
             }
 
@@ -88,21 +88,24 @@ window.loadComponent = (function () {
             }) {
                 const SHADOW = elem.shadowRoot
 
-                const COLOUR = colour ? colour : 'neutral'
+                const COLOUR = colour ? colour : 'base';
+                const LIGHTNESS_5 = `${parseInt(getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}-lightness`)) + 5}%`;
+                const LIGHTNESS_INIT = `${getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}-lightness`)}%`;
+                const LIGHTNESS_10 = `${parseInt(getComputedStyle(this).getPropertyValue(`--component-colour-${COLOUR}-lightness`)) + 10}%`;
                 SHADOW.getElementById('colourStyle').textContent = `
                     #wrapper {
-                        background-color: var(--gk-colour-${COLOUR}-600);
-                        border-color: var(--gk-colour-${COLOUR}-400) var(--gk-colour-${COLOUR}-800) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-300);
+                        background-color: hsl(var(--component-colour-${COLOUR}), ${LIGHTNESS_INIT});
+                        border-color: hsl(var(--component-colour-${COLOUR}), ${LIGHTNESS_5});
                     }
                     #wrapper:hover {
-                        background-color: var(--gk-colour-${COLOUR}-500);
-                        border-color: var(--gk-colour-${COLOUR}-300) var(--gk-colour-${COLOUR}-700) var(--gk-colour-${COLOUR}-600) var(--gk-colour-${COLOUR}-200);
-                    }`
+                        background-color: hsl(var(--component-colour-${COLOUR}), ${LIGHTNESS_5});
+                        border-color: hsl(var(--component-colour-${COLOUR}), ${LIGHTNESS_10});
+                    }`;
 
-                SHADOW.querySelector('#wrapper').style.borderWidth = this.flat ? '0px' : '8px'
-                SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '0px'
+                SHADOW.querySelector('#wrapper').style.borderWidth = '2px';
+                SHADOW.querySelector('#wrapper').style.borderRadius = this.rounded ? '25px' : '5px';
 
-                this.set_outline();
+                this.set_outline(COLOUR);
             }
 
             updateStyle({
@@ -149,11 +152,6 @@ window.loadComponent = (function () {
 
             get rounded() {
                 if (typeof this.getAttribute('rounded') === 'string') return 'rounded'
-                else return null
-            }
-
-            get flat() {
-                if (typeof this.getAttribute('flat') === 'string') return 'flat'
                 else return null
             }
 

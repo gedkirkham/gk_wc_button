@@ -37,15 +37,23 @@ To add rounding to the corners of the button, add the 'rounded' attribute.
 </gk-wc-button>
 ```
 
-### Flat
-To flatten the button, add the 'flat' attribute.
-```html
-<gk-wc-button flat>
-</gk-wc-button>
+### Colour
+To change the colour of the button, add the colour attibute with a valid param. Currently, only the following values are valid; negative, warning, success and base.
+
+If you would like to replace these colours, then you can do so by creating your own custom css variables in HSL format, rather than the usual HEX which most people will be used to. 
+
+The below code snippet is #ffd500 formatted as hsl. --component-colour-base refers to the hue and saturation of HSL, and --component-colour-base-lightness refers to...the lightness of HSL. In raw css, #ffd500 would be represented as hsl(50, 100%, 50%).
+
+```css
+gk-wc-button {
+    --component-colour-base: 50, 100%;
+    --component-colour-base-lightness: 50;
+
+    --component-colour-warning: 0, 100%;
+    --component-colour-warning-lightness: 50;
+}
 ```
 
-### Colour
-To change the colour of the button, add the colour attibute with a valid param. Currently, only the following values are valid; negative, warning, success and neutral.
 ```html
 <gk-wc-button colour="success">
 </gk-wc-button>
@@ -73,7 +81,6 @@ To create a flat design that just has a outline border, add the 'outline' attrib
 <gk-wc-button
     id="gkButton"
     rounded
-    flat
     colour="neutral"
 >
 </gk-wc-button>

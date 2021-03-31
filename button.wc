@@ -58,37 +58,17 @@
 
     :host {
         cursor: pointer;
-        --gk-colour-negative-200: #FECACA;
-        --gk-colour-negative-300: #FCA5A5;
-        --gk-colour-negative-400: #F87171;
-        --gk-colour-negative-500: #EF4444;
-        --gk-colour-negative-600: #DC2626;
-        --gk-colour-negative-700: #B91C1C;
-        --gk-colour-negative-800: #991B1B;
+        --component-colour-negative: 0, 84%;
+        --component-colour-negative-lightness: 60;
 
-        --gk-colour-warning-200: #FDE68A;
-        --gk-colour-warning-300: #FCD34D;
-        --gk-colour-warning-400: #FBBF24;
-        --gk-colour-warning-500: #F59E0B;
-        --gk-colour-warning-600: #D97706;
-        --gk-colour-warning-700: #B45309;
-        --gk-colour-warning-800: #92400E;
+        --component-colour-warning: 38, 92%;
+        --component-colour-warning-lightness: 50;
 
-        --gk-colour-success-200: #BBF7D0;
-        --gk-colour-success-300: #86EFAC;
-        --gk-colour-success-400: #4ADE80;
-        --gk-colour-success-500: #22C55E;
-        --gk-colour-success-600: #16A34A;
-        --gk-colour-success-700: #15803D;
-        --gk-colour-success-800: #166534;
+        --component-colour-success: 142, 71%;
+        --component-colour-success-lightness: 45;
 
-        --gk-colour-neutral-200: #BFDBFE;
-        --gk-colour-neutral-300: #93C5FD;
-        --gk-colour-neutral-400: #60A5FA;
-        --gk-colour-neutral-500: #3B82F6;
-        --gk-colour-neutral-600: #2563EB;
-        --gk-colour-neutral-700: #1D4ED8;
-        --gk-colour-neutral-800: #1E40AF;
+        --component-colour-base: 217, 91%;
+        --component-colour-base-lightness: 60;
     }
 
     :host(:focus-visible)>#wrapper {
